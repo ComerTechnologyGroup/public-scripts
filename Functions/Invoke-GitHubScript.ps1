@@ -31,4 +31,4 @@ function Invoke-GithubScript {
         Write-Output "ERROR: $($_.Exception.message)"
     }
 }
-Invoke-GithubScript -ScriptURL 'https://github.com/ComerTechnologyGroup/public-scripts/blob/main/Scripts/Get-Services.ps1'
+Invoke-GithubScript -ScriptURL 'https://github.com/ComerTechnologyGroup/public-scripts/blob/main/Monitors/Windows/Active%20Directory/Get-AD-Recycle_Bin_Status.ps1'
