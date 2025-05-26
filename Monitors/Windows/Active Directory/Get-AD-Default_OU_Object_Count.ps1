@@ -20,12 +20,12 @@ Function Get-DefaultUserOU {
 
 #endregion Functions
 try {
-	$defaultOUs = New-Object -TypeName System.Collections.Generic
+	$defaultOUs = @()
 	if (Get-DefaultUserOU | Where-Object { $_ -match 'CN=' }) {
-		$defaultous.add($(Get-DefaultUserOU)) | Out-Null
+		$defaultous += $(Get-DefaultUserOU)
 	}
 	if (Get-DefaultComputerOU | Where-Object { $_ -match 'CN=' }) {
-		$defaultous.add($(Get-DefaultComputerOU)) | Out-Null
+		$defaultous += $(Get-DefaultComputerOU)
 	}
 	if ($defaultous.count -gt 0) {
 		Write-Output "ERROR: $($defaultous -join '; ')"
