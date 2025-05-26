@@ -7,16 +7,13 @@ function Invoke-GithubScript {
         # Sets the URL of the script to download the script
         [Parameter(mandatory = $false, position = 1, ValueFromPipeline = $false)]
         [string]
-        $ScriptURL,
-        [Parameter(mandatory = $false, position = 2, ValueFromPipeline = $false)]
-        [string]
-        $Function
+        $ScriptURL
     )
     try {
         Add-Type -AssemblyName System.Web
         foreach ($paramName in $MyInvocation.MyCommand.Parameters.keys) {
             $paramValue = Get-Variable -Scope Local -Name $paramName -ValueOnly -ErrorAction SilentlyContinue
-            if ($paramName -in ('ScriptURL', 'Function') -and $null -eq $paramValue) {
+            if ($paramName -in ('ScriptURL') -and $null -eq $paramValue) {
                 Write-Output "ERROR: Parameter $paramName is not set"
                 exit 1
             }
@@ -30,7 +27,6 @@ function Invoke-GithubScript {
         $wc.Headers.Add('X-GitHub-Api-Version', '2022-11-28')
         $wc.Headers.Add('Content-Type', 'application/json;charset=UTF-8')
         $wc.DownloadString("$URL") | Invoke-Expression
-        $Function
     } catch {
         Write-Output "ERROR: $($_.Exception.message)"
     }
