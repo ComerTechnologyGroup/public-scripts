@@ -29,8 +29,10 @@ try {
 	}
 	if ($defaultous.count -gt 0) {
 		Write-Output "ERROR: $($defaultous -join '; ')"
+		exit 1
 	} else {
 		Write-Output "SUCCESS: $($defaultous -join '; ')"
+		exit 0
 	}
 } catch {
 	Write-Output "WARNING: $($_.exception.message)"
